@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Header Table" />
+
+    <com.aburasel.colorful_data_table.ColorfulDataTable
+        android:id="@+id/table"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        app:direction="ltr"
+        app:header_background_color="#fff"
+        app:header_gravity="center"
+        app:header_horizontal_padding="0dp"
+        app:header_text_color="#000"
+        app:header_text_size="12sp"
+        app:header_vertical_padding="4dp"
+        app:row_gravity="center"
+        app:row_text_size="12sp"
+        app:row_vertical_padding="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Group Header Table" />
+
+    <com.aburasel.colorful_data_table.ColorfulDataTable
+        android:id="@+id/spannedTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        app:direction="ltr"
+        app:header_background_color="#fff"
+        app:header_gravity="center"
+        app:header_horizontal_padding="0dp"
+        app:header_text_size="12sp"
+        app:header_vertical_padding="4dp"
+        app:row_gravity="center"
+        app:row_horizontal_margin="1px"
+        app:row_text_size="12sp"
+        app:row_vertical_padding="16dp" />
+</LinearLayout>
