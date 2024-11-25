@@ -368,7 +368,7 @@ class ColorfulDataTable : FrameLayout {
                         )
                         return
                     }
-                    if ((item.cellStartIndex + item.spanCount) > (headerWeightSum+1)) {
+                    if ((item.cellStartIndex + item.spanCount) > headerWeightSum) {
                         Log.e(
                             ColorfulDataTable::class.simpleName,
                             "Group header cell goes out of table"
