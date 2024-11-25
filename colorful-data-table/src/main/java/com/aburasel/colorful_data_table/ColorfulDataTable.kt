@@ -339,15 +339,15 @@ class ColorfulDataTable : FrameLayout {
         val headerWeightSum = header.weights.sum()
         groupHeader?.let {
             if (groupHeader!!.items.isEmpty()) {
-                Log.d(
+                Log.e(
                     ColorfulDataTable::class.simpleName,
-                    "Spanned header is empty"
+                    "Group header is empty"
                 )
             }
             if (groupHeader!!.items.sumOf { it.spanCount } > header.weights.sum()) {
-                Log.d(
+                Log.e(
                     ColorfulDataTable::class.simpleName,
-                    "Spanned header span count sum exceeds total header weights"
+                    "Group header span count sum exceeds total header weights"
                 )
                 return
             }
@@ -362,16 +362,16 @@ class ColorfulDataTable : FrameLayout {
                 val item = groupHeader!!.items.getOrNull(i + 1)
                 item?.let {
                     if (item.cellStartIndex < expectedCellStart) {
-                        Log.d(
+                        Log.e(
                             ColorfulDataTable::class.simpleName,
-                            "Spanned header cell start index overlaps spans"
+                            "Group header cell start index overlaps spans"
                         )
                         return
                     }
-                    if ((item.cellStartIndex + item.spanCount) > headerWeightSum) {
-                        Log.d(
+                    if ((item.cellStartIndex + item.spanCount) > (headerWeightSum+1)) {
+                        Log.e(
                             ColorfulDataTable::class.simpleName,
-                            "Spanned header cell goes out of table"
+                            "Group header cell goes out of table"
                         )
                         return
                     }
