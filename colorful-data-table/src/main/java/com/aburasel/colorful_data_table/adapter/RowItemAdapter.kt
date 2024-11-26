@@ -31,6 +31,8 @@ class RowItemAdapter(
     horizontalMargin: Float,
     rowTextSize: Float,
     rowGravity: TextGravity,
+    leftAlignedColumns: ArrayList<Int>,
+    rightAlignedColumns: ArrayList<Int>,
     typeface: Typeface? = null,
     rowAlternatingBackgroundTextColor: Pair<Pair<Int, Int>, Pair<Int, Int>>? = null,
 ) :
@@ -49,6 +51,8 @@ class RowItemAdapter(
     private val rowTextSize: Float
     private val rowGravity: TextGravity
     private var typeface: Typeface? = null
+    private var leftAlignedColumns = arrayListOf<Int>()
+    private var rightAlignedColumns = arrayListOf<Int>()
 
     init {
         this.values = values
@@ -65,6 +69,8 @@ class RowItemAdapter(
         this.horizontalMargin = horizontalMargin
         this.rowTextSize = rowTextSize
         this.rowGravity = rowGravity
+        this.leftAlignedColumns = leftAlignedColumns
+        this.rightAlignedColumns = rightAlignedColumns
         this.typeface = typeface
         this.rowAlternatingBackgroundTextColor = rowAlternatingBackgroundTextColor
     }
@@ -85,6 +91,13 @@ class RowItemAdapter(
         )
         if (values!![position].values.size != weights!!.size) return
         for (j in values!![position].values.indices) {
+            var textGravity = rowGravity //defaultGravity
+            if (leftAlignedColumns.contains(j)) {
+                textGravity = TextGravity.LEFT
+            }
+            if (rightAlignedColumns.contains(j)) {
+                textGravity = TextGravity.RIGHT
+            }
             val textView: TextView = ViewGenerator.generateTextView(
                 context,
                 values!![position].values[j].printable(),
@@ -102,7 +115,7 @@ class RowItemAdapter(
                 horizontalMargin,
                 verticalMargin,
                 rowTextSize,
-                rowGravity,
+                textGravity,
                 typeface,
                 Typeface.NORMAL,
                 rowAlternatingBackgroundTextColor,

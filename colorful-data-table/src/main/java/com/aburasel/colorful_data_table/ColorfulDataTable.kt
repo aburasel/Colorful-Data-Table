@@ -14,9 +14,9 @@ import com.aburasel.colorful_data_table.adapter.RowItemAdapter
 import com.aburasel.colorful_data_table.enums.Direction
 import com.aburasel.colorful_data_table.enums.TextGravity
 import com.aburasel.colorful_data_table.models.SpannableColorCell
+import com.aburasel.colorful_data_table.models.TableGroupHeader
 import com.aburasel.colorful_data_table.models.TableHeader
 import com.aburasel.colorful_data_table.models.TableRow
-import com.aburasel.colorful_data_table.models.TableGroupHeader
 import com.aburasel.colorful_data_table.utils.ViewGenerator
 
 //
@@ -24,6 +24,8 @@ import com.aburasel.colorful_data_table.utils.ViewGenerator
 
 
 class ColorfulDataTable : FrameLayout {
+    private var leftAlignedColumns = arrayListOf<Int>()
+    private var rightAlignedColumns = arrayListOf<Int>()
     private var headerTextSize: Float = 0f
     private var rowTextSize: Float = 0f
     private var headerTextColor: Int = 0
@@ -69,6 +71,14 @@ class ColorfulDataTable : FrameLayout {
 
     fun setRowGravity(rowGravity: TextGravity) {
         this.rowGravity = rowGravity
+    }
+
+    fun setColumnIndicesOfTextAlignmentLeft(columnIndices: ArrayList<Int>) {
+        this.leftAlignedColumns = columnIndices
+    }
+
+    fun setColumnIndicesOfTextAlignmentRight(columnIndices: ArrayList<Int>) {
+        this.rightAlignedColumns = columnIndices
     }
 
     fun getTypeface(): Typeface? {
@@ -377,6 +387,33 @@ class ColorfulDataTable : FrameLayout {
                     }
                 }
             }
+            if(leftAlignedColumns.isNotEmpty() && rows.isNotEmpty()){
+                if (leftAlignedColumns.any { it >= rows.first().values.size || it < 0 }) {
+                    Log.e(
+                        ColorfulDataTable::class.simpleName,
+                        "Left text aligned column index does not exist."
+                    )
+                    return
+                }
+            }
+
+            if(rightAlignedColumns.isNotEmpty()&& rows.isNotEmpty()){
+                if (rightAlignedColumns.any { it >= rows.first().values.size || it < 0 }) {
+                    Log.e(
+                        ColorfulDataTable::class.simpleName,
+                        "Left text aligned column index does not exist."
+                    )
+                    return
+                }
+            }
+            if(leftAlignedColumns.intersect(rightAlignedColumns.toSet()).isNotEmpty()){
+                Log.e(
+                    ColorfulDataTable::class.simpleName,
+                    "Text aligned marked as Left and Right have duplicate common column."
+                )
+                return
+            }
+
 
         }
 
@@ -500,6 +537,8 @@ class ColorfulDataTable : FrameLayout {
             this.rowHorizontalMargin,
             this.rowTextSize,
             this.rowGravity,
+            this.leftAlignedColumns,
+            this.rightAlignedColumns,
             typeface,
             this.alternatingRowColor
         )
