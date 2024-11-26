@@ -108,5 +108,8 @@ Make sure that header column count matches with rows column count.
     binding.content.table.setDividerThickness(1f)
     binding.content.table.setDividerColor(Color.GREY)
     binding.content.table.setHeaderGravity(TextGravity.CENTER)
+### To change column wise text alignment use-
+>	binding.content.table.setColumnIndicesOfTextAlignmentRight(arrayListOf(1))
+	
       
 
