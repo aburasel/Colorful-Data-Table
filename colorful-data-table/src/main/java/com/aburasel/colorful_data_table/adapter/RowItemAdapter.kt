@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aburasel.colorful_data_table.R
 import com.aburasel.colorful_data_table.enums.TextGravity
+import com.aburasel.colorful_data_table.models.ColorCell
 import com.aburasel.colorful_data_table.models.TableRow
 import com.aburasel.colorful_data_table.utils.ViewGenerator
 
@@ -35,6 +36,7 @@ class RowItemAdapter(
     rightAlignedColumns: ArrayList<Int>,
     typeface: Typeface? = null,
     rowAlternatingBackgroundTextColor: Pair<Pair<Int, Int>, Pair<Int, Int>>? = null,
+    val onClickCell: (value: ColorCell, rowPosition: Int, celPosition: Int) -> Unit = { _, _, _ -> }
 ) :
     RecyclerView.Adapter<RowItemAdapter.RowItemViewHolder>() {
     private var values: ArrayList<TableRow>? = null
@@ -121,6 +123,9 @@ class RowItemAdapter(
                 rowAlternatingBackgroundTextColor,
                 position % 2 == 0
             )
+            textView.setOnClickListener {
+                onClickCell(values!![position].values[j], position, j)
+            }
             valueLinearLayout.addView(textView)
         }
         itemLinearLayout.addView(valueLinearLayout)

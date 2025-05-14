@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.aburasel.colorful_data_table.adapter.RowItemAdapter
 import com.aburasel.colorful_data_table.enums.Direction
 import com.aburasel.colorful_data_table.enums.TextGravity
+import com.aburasel.colorful_data_table.models.ColorCell
 import com.aburasel.colorful_data_table.models.SpannableColorCell
 import com.aburasel.colorful_data_table.models.TableGroupHeader
 import com.aburasel.colorful_data_table.models.TableHeader
@@ -50,6 +51,8 @@ class ColorfulDataTable : FrameLayout {
     private var groupHeader: TableGroupHeader? = null
     private var rows: ArrayList<TableRow> = arrayListOf()
     private var alternatingRowColor: Pair<Pair<Int, Int>, Pair<Int, Int>>? = null
+    private var clickListener: (cell: ColorCell, rowPosition: Int, celPosition: Int) -> Unit =
+        { _, _, _ -> }
 
     constructor(context: Context) : super(context)
 
@@ -282,6 +285,9 @@ class ColorfulDataTable : FrameLayout {
         this.headerGravity = headerGravity
     }
 
+    fun setCellClickListener(clickListener: (cell: ColorCell, rowPosition: Int, celPosition: Int) -> Unit) {
+        this.clickListener = clickListener
+    }
 
     private fun fetchAttrs(context: Context, attrs: AttributeSet?) {
         @SuppressLint("CustomViewStyleable") val ta =
@@ -387,7 +393,7 @@ class ColorfulDataTable : FrameLayout {
                     }
                 }
             }
-            if(leftAlignedColumns.isNotEmpty() && rows.isNotEmpty()){
+            if (leftAlignedColumns.isNotEmpty() && rows.isNotEmpty()) {
                 if (leftAlignedColumns.any { it >= rows.first().values.size || it < 0 }) {
                     Log.e(
                         ColorfulDataTable::class.simpleName,
@@ -397,7 +403,7 @@ class ColorfulDataTable : FrameLayout {
                 }
             }
 
-            if(rightAlignedColumns.isNotEmpty()&& rows.isNotEmpty()){
+            if (rightAlignedColumns.isNotEmpty() && rows.isNotEmpty()) {
                 if (rightAlignedColumns.any { it >= rows.first().values.size || it < 0 }) {
                     Log.e(
                         ColorfulDataTable::class.simpleName,
@@ -406,7 +412,7 @@ class ColorfulDataTable : FrameLayout {
                     return
                 }
             }
-            if(leftAlignedColumns.intersect(rightAlignedColumns.toSet()).isNotEmpty()){
+            if (leftAlignedColumns.intersect(rightAlignedColumns.toSet()).isNotEmpty()) {
                 Log.e(
                     ColorfulDataTable::class.simpleName,
                     "Text aligned marked as Left and Right have duplicate common column."
@@ -540,7 +546,8 @@ class ColorfulDataTable : FrameLayout {
             this.leftAlignedColumns,
             this.rightAlignedColumns,
             typeface,
-            this.alternatingRowColor
+            this.alternatingRowColor,
+            clickListener
         )
         tableLinearLayout.addView(
             ViewGenerator.generateRecyclerView(

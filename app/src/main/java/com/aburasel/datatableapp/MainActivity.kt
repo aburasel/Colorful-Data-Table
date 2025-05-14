@@ -3,6 +3,7 @@ package com.aburasel.datatableapp
 import android.graphics.Color
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.aburasel.colorful_data_table.models.TableGroupHeader
 import com.aburasel.colorful_data_table.models.TableHeader
@@ -79,6 +80,9 @@ class MainActivity : AppCompatActivity() {
         binding.content.spannedTable.setHeader(myHeader)
         binding.content.spannedTable.setGroupHeader(mySpannedHeader)
         binding.content.spannedTable.setRows(tableRows)
+        binding.content.spannedTable.setCellClickListener { cell, rowPosition, celPosition ->
+            Log.e("cell-val", "${cell.text},${rowPosition},$celPosition")
+        }
         binding.content.spannedTable.inflate(this)
     }
 

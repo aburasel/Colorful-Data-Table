@@ -87,6 +87,12 @@ Make sure that header column count matches with rows column count.
             Color.parseColor("#EEE8EE"),
             Color.BLACK
         )
+##  To set click listener for individual cell-
+>
+    binding.content.spannedTable.setCellClickListener { cell, rowPosition, celPosition ->
+        Log.e("cell-val", "${cell.text},${rowPosition},$celPosition")
+    }
+
 ##  Available methods-
 >
     binding.content.table.setHeaderTextSize(10f)
