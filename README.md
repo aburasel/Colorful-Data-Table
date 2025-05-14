@@ -16,7 +16,7 @@ Add it in your root build.gradle at the end of repositories:
 	}
 >
     dependencies {
-	        implementation 'com.github.aburasel:Colorful-Data-Table:1.0.0'
+	        implementation 'com.github.aburasel:Colorful-Data-Table:1.0.2'
 	}
 
 ##  Usages:
