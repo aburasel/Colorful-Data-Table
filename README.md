@@ -89,7 +89,7 @@ Make sure that header column count matches with rows column count.
         )
 ##  To set click listener for individual cell-
 >
-    binding.content.spannedTable.setCellClickListener { cell, rowPosition, celPosition ->
+    binding.content.table.setCellClickListener { cell, rowPosition, celPosition ->
         Log.e("cell-val", "${cell.text},${rowPosition},$celPosition")
     }
 
